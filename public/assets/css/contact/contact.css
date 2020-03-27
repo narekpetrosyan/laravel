@@ -1,0 +1,11 @@
+#fr>.col-md-4{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#fr>.col-md-4>i{
+    height: 25px;
+    width: 30px;
+}
