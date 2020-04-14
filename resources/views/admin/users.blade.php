@@ -3,7 +3,6 @@
 @section('title','AdminPanel | Users')
 
 
-
 @section('content')
     <div class="col-md-12">
         <div class="card">
@@ -11,32 +10,36 @@
                     <h4 class="card-title">Users</h4>
                 </div>
                 <div class="card-body">
+                    @include('./layout/messages')
                     <div class="table-responsive">
                         <table class="table">
                             <thead class=" text-primary">
                                 <th>ID</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>User Type</th>
+                                <th>User Role</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </thead>
-                            <div class="card-body">
-                                @if (session('success'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{session('success')}}
-                                    </div>
-                                @endif
-                            </div>
                             <tbody>
                                 @foreach ($users as $user)
                                 <tr>
                                     <td>{{$user->id}}</td>
+                                    <td>
+                                        <div>
+                                            <img src="{{asset('/user_images/'. $user->image) }}" class="img-fluid" style="width:200px;height:200px;" alt="">
+                                        </div>
+                                    </td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->phone}}</td>
-                                    <td>-{{$user->usertype}}</td>
+                                    @if(implode($user->roles()->get()->pluck('name')->toArray()) === 'admin')
+                                        <td>{{implode($user->roles()->get()->pluck('name')->toArray())}}</td>
+                                    @else
+                                        <td>user</td>
+                                    @endif
                                     <td>
                                         <a class="btn btn-primary btn-sm text-center" href="{{route('editUser',$user->id)}}">
                                             <i class="fas fa-edit text-white"></i>

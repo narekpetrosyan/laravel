@@ -5,21 +5,14 @@
 
 
 @section('content')
-@include('./layout/messages')
-<div class="card-body">
-    @if (session('success'))
-        <div class="alert alert-success" role="alert">
-            {{session('success')}}
-        </div>
-    @endif
-</div>
     <div class="col-md-12">
+        @include('./layout/messages')
         <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Create new Post</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('submit')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('admin.submit')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="subject">Your subject</label>

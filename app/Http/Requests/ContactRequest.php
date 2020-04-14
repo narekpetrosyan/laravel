@@ -25,7 +25,7 @@ class ContactRequest extends FormRequest
     {
         return [
             'subject' => 'required|max:255',
-            'image'=>'required'
+            'image'=>'sometimes|image|max:5000|mimes:jpg,jpeg,png,jfif'
         ];
     }
 
@@ -39,5 +39,5 @@ class ContactRequest extends FormRequest
             'email.required' => 'Введите эл. адрес',
         ];
     }
-    
+
 }

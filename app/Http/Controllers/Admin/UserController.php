@@ -18,14 +18,20 @@ class UserController extends Controller
     public function EditUser(Request $req , $id){
         $user = User::find($id);
 
-        return view('admin.editUser')->with('user',$user);
+        if (implode($user->roles()->get()->pluck('name')->toArray()) != 'admin'){
+            return view('admin.editUser')->with('user',$user);
+        }else{
+            return redirect('/admin/users')->with('denied','Cant change user type of Admin');
+        }
+
     }
 
     public function UpdateUser($id,Request $req){
         $user = User::find($id);
 
-        // $user->name = $req->name;
-        $user->usertype = $req->usertype;
+        $user->name = $req->name;
+        $user->email = $req->email;
+        $user->phone = $req->phone;
         $user->update();
 
         return redirect('/admin/users')->with('success','Your data is updated.');

@@ -4,7 +4,10 @@
     User page
 @endsection
 
+
+
 @section('content')
+    @include('./layout/messages')
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">User Data</h4>
@@ -13,20 +16,17 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead class=" text-primary">
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Update data</th>
                             </thead>
-                            <div class="card-body">
-                                @if (session('success'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{session('success')}}
-                                    </div>
-                                @endif
-                            </div>
                             <tbody>
                                 <tr>
+                                    <td>
+                                        <img src="{{asset('user_images/'.Auth::user()->image)}}" style="with:60px; height: 60px;border-radius: 50%;" alt="">
+                                    </td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->phone}}</td>

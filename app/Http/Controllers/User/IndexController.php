@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,25 +30,39 @@ class IndexController extends Controller
     public function update()
     {
         $user = Auth::user();
+        if (implode($user->roles()->get()->pluck('name')->toArray()) != 'admin'){
+            return view('user.update')->with('user',$user);
+        }else{
+            return redirect('/user')->with('denied','You cant change data of admin');
+        }
 
-        return view('user.update')->with('user',$user);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param UserRequest $req
      * @return \Illuminate\Http\Response
      */
-    public function submit(Request $req){
+    public function submit(UserRequest $req){
         $user = Auth::user();
 
-        $user->name = $req->name;
+
+        if ($req->has('image')){
+            $uploadedimage = $req->file('image');
+            $imagename = time().'.'. $uploadedimage->getClientOriginalExtension();
+            $imagepath = public_path('/user_images/');
+            $uploadedimage->move($imagepath,$imagename);
+            $user->image = $imagename;
+        }
         $user->email = $req->email;
+        $user->name = $req->name;
         $user->phone = $req->phone;
-        $user->sex = $req->sex;
         $user->birthday = $req->birthday;
+        $user->sex = $req->sex;
+
         $user->update();
+
 
         return redirect('/user')->with('success','Your data has been changed.');
     }

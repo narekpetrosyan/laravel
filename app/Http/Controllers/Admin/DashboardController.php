@@ -17,7 +17,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // $feeds = Contact::paginate(2);
         return view('admin.dashboard')->with(['feeds'=>Contact::paginate(2)]);
     }
 
@@ -27,18 +26,28 @@ class DashboardController extends Controller
 
     public function submit(ContactRequest $req){
 
+        if ($req->has('image')){
             $image = $req->file('image');
-            $name = uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $name);
-    
+            $name = time().'.'. $image->getClientOriginalExtension();
+            $path = public_path('/images/');
+            $image->move($path,$name);
             Contact::create([
                 'subject' => $req->subject,
                 'text' => $req->text,
-                'image' => $name
+                'image' => $name,
             ]);
-            
-            return redirect('admin/dashboard')->with('success','You have created new Post.');
+        }else{
+            Contact::create([
+                'subject' => $req->subject,
+                'text' => $req->text,
+                'image' => '/default/default-image.jpg'
+            ]);
         }
+
+
+
+        return redirect('admin/dashboard')->with('success','You have created new Post.');
+    }
 
     /**
      * Show the form for creating a new resource.

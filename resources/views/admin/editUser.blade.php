@@ -3,7 +3,6 @@
 @section('title','AdminPanel | Edit')
 
 
-
 @section('content')
     <div class="col-md-12">
         <div class="card">
@@ -13,16 +12,21 @@
                 <div class="card-body">
                     <form action="{{route('updateUser',$user->id)}}" method="POST">
                         @csrf
-                        {{-- <div class="form-group">
+                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" value="{{$user->name}}">
-                        </div> --}}
+                        </div>
                         <div class="form-group">
-                            <label>Type</label>
-                            <select name="usertype" class="form-control" id="">
-                                <option value="admin">Admin</option>
-                                <option value="user">User</option>
-                            </select>
+                            <label>Phone</label>
+                            <input type="number" name="phone" class="form-control" value="{{$user->phone}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="email" class="form-control" value="{{$user->email}}">
+                        </div>
+                        <div class="form-group">
+                            <label>Birth Day</label>
+                            <input type="date" name="email" class="form-control" value="{{$user->birthday}}">
                         </div>
                         <button type="submit" class="btn btn-success">Update</button>
                         <a href="{{route('users')}}" class="btn btn-danger">Cancel</a>

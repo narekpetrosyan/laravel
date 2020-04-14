@@ -16,11 +16,11 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->usertype == 'admin') {
+        if (Auth::user()->hasAnyRole('admin')) {
             return $next($request);
         }else{
-            return redirect('user/')->with('status','Вы не можете войти в AdminPanel.');
+            return redirect('user/')->with('denied','Вы не можете войти в AdminPanel.');
         }
-        
+
     }
 }

@@ -34,7 +34,7 @@
                             <textarea name="text" id="" class="form-control">{{$feed->text}}</textarea>
                         </div>
                         <button class="btn btn-success">Accept</button>
-                        <a href="{{url('admin')}}" class="btn btn-danger">Cancel</a>
+                        <a href="{{url('admin/dashboard')}}" class="btn btn-danger">Cancel</a>
                     </form>
                 </div>
         </div>

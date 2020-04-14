@@ -6,6 +6,7 @@
 
 @section('content')
     <div class="col-md-12">
+        @include('./layout/messages')
         <div class="card">
                 <div class="card-header">
                     <h4 class="card-title"> Simple Table</h4>
@@ -20,13 +21,6 @@
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </thead>
-                            <div class="card-body">
-                                @if (session('success'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{session('success')}}
-                                    </div>
-                                @endif
-                            </div>
                             <tbody>
                                 @foreach ($feeds as $feed)
                                 <tr>
@@ -34,7 +28,7 @@
                                     <td>{{$feed->text}}</td>
                                     <td>
                                         <div>
-                                            <img src="{{asset('images/'. $feed->image) }}" class="img-fluid" style="width:200px;height:200px;" alt="">
+                                            <img src="{{asset('/images/'. $feed->image) }}" class="img-fluid" style="width:200px;height:200px;" alt="">
                                         </div>
                                     </td>
                                     <td>

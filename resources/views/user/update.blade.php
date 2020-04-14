@@ -9,9 +9,18 @@
     <div class="card-header">
         <h4 class="card-title">Update data in your account</h4>
     </div>
+     @include('./layout/messages')
     <div class="card-body">
-        <form action="{{route('submit',$user)}}" method="POST">
+        <form action="{{route('submit',$user)}}" method="POST" enctype="multipart/form-data">
             @csrf
+            <div class="form-group row">
+                <label for="image" class="col-md-4 col-form-label text-md-right">Please upload image</label>
+
+                <div class="col-md-6">
+                    <input id="image" type="file" class="form-control" name="image">
+                    <small class="text-small text-info">* not required</small>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" name="name" class="form-control" value="{{$user->name}}">
@@ -33,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="birthday">Birthday</label>
-                <input type="date" id="birthday" name="birthday" class="form-control">
+                <input type="date" id="birthday" name="birthday" class="form-control" value="{{$user->birthday}}">
             </div>
             <button type="submit" class="btn btn-success">Save changes</button>
             <a href="{{ url('user') }}" class="btn btn-danger">Cancel</a>
